@@ -30,3 +30,9 @@ ze.extrato()
 zecove.extrato()
 
 joao.extrato()
+
+ze.caixinha_invest(500, 2)
+
+ze.calcular_rendimento()
+
+ze.extrato()

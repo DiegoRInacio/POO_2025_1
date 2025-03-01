@@ -6,6 +6,9 @@ class Banco:
         self.cliente = cliente
         self.cpf = cpf
         self.saldo = 0
+        self.caixinha = 0
+        self.tempo_investimento = None
+        self.taxa_juros = 0.005
         self.senha = None
     
 
@@ -53,7 +56,28 @@ De: {self.cliente}
 Para: {destinatario.cliente}
                 """
             )
+
     # Caixinha
+    def caixinha_invest(self, valor, tempo_meses):
+        if isinstance(valor, (int, float)) and self.saldo >= valor:
+            self.saldo -= valor
+            self.caixinha += valor
+            self.tempo_investimento = tempo_meses
+            print(f"Valor de R${float(valor)} transferido para caixinha por {tempo_meses} meses")
+        else:
+            print(f"Valor digitado de forma errada ou saldo menor que o valor definido R${float(valor)}")
+    
+    def calcular_rendimento(self):
+        if self.tempo_investimento is not None and self.caixinha > 0:
+            # Juros compostos:  M = C *(1+i)^t
+            montante = self.caixinha * (1 + self.taxa_juros) ** self.tempo_investimento
+            rendimento = montante - self.caixinha
+            self.caixinha = montante
+            print(f"Rendimento da caixinha apo´s {self.tempo_investimento} meses: R${rendimento:.2f}")
+            self.tempo_investimento = None
+        else:
+            print("Não existe inventimento no momento!")
+
     # Extrato
     def extrato(self):
         print(
