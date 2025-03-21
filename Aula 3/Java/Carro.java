@@ -64,7 +64,6 @@ public class Carro {
                 velocidade = 160;
             }
         }
-
         System.out.println("O carro está na marcha " + marcha + " e a velocidade é " + velocidade + " km/h");
     }
 
@@ -95,9 +94,12 @@ public class Carro {
         System.out.println(meuCarro);
 
         meuCarro.ligarCarro();
-        meuCarro.acelerar();
-        meuCarro.acelerar();
-        meuCarro.frear();
+        for (int i = 0; i < 5; i++) {
+            meuCarro.acelerar();
+        }
+        for (int i = 0; i < 5; i++) {
+            meuCarro.frear();
+        }
         meuCarro.passarMarchaRe();
     }
 }
