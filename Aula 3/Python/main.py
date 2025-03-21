@@ -15,7 +15,7 @@ print(carro1, "\n", carro2)
 
 carro2.ligar_carro()
 
-for i in range(4):
+for i in range(30):
     carro2.acelerar()
 
 for i in range(6):

@@ -8,6 +8,7 @@ class Carro:
         self.placa = placa
         self.is_running = False
         self.velocidade = 0
+        self.marcha = 0 # Marcha ré será -1
     
     # Método de apresentação
     # Método de classe
@@ -36,12 +37,38 @@ do ano {self.ano} e cor {self.cor} saiu da loja e hoje tem a placa
         else:
             print("O carro já esta ligado!!!")
     
+    # montar um acelerador que ira acelerar com base na marchar definida
     def acelerar(self):
-        if self.is_running:
+        if self.is_running and self.marcha == 0:
+            self.marcha = 1
+            self.velocidade += 30
+        elif self.is_running and self.marcha == 1:
+            self.marcha = 2
+            self.velocidade += 25
+        elif self.is_running and self.marcha == 2:
+            self.marcha = 3
+            self.velocidade += 15
+        elif self.is_running and self.marcha == 3:
+            self.marcha = 4
+            self.velocidade += 10
+        elif self.is_running and self.marcha == 4:
+            self.marcha = 5
             self.velocidade += 5
-            print(f"A velocidade do carro é {self.velocidade}km/h")
+        elif self.is_running and self.marcha == 5:
+            self.marcha = 6
+            self.velocidade += 5
+            if self.velocidade > 160:
+                self.velocidade = 160
         else:
             print(f"O carro {self.modelo} esta desligado precisa ligar o carro primeiro!!!")
+        print(f"O carro esta na marcha {self.marcha} e velocidade do carro é {self.velocidade}km/h")
+
+    def passar_marcha_re(self):
+        if self.is_running and 0 >= self.marca <= 1:
+            dicio = {-1: "Ré", 0:"Neutro"}
+            self.marcha = -1
+            self.velocidade += 3
+            print(f"O carro esta na marcha {dicio[self.marcha]} e velocidade do carro é {self.velocidade}km/h")
 
     def freiar(self):
         if self.is_running and self.velocidade > 0:
@@ -50,7 +77,7 @@ do ano {self.ano} e cor {self.cor} saiu da loja e hoje tem a placa
         else:
             print(f"O carro {self.modelo} esta desligado ou sua velocidade já é 0 km/h precisa ligar o carro primeiro!!!")
 
-# montar um acelerador que ira acelerar com base na marchar definida
+
 
 # para o carro da a ré ele precisa esta entre 1 km/h ou parado
 
