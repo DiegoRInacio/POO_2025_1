@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuários Cadastrados</title>
+</head>
+<body>
+  <h1>Usuários Cadastrados</h1>
+  <button onclick="limparUsuarios()">Limpar Todos</button>
+  <ul id="listaUsuarios"></ul>
+  <a href="index.html"><button>Voltar</button></a>
+
+  <script>
+    function carregarUsuarios() {
+      fetch('http://127.0.0.1:5000/usuarios')
+        .then(response => response.json())
+        .then(usuarios => {
+          const lista = document.getElementById('listaUsuarios');
+          lista.innerHTML = ''; // limpa a lista
+
+          usuarios.forEach(user => {
+            const item = document.createElement('li');
+            item.textContent = `ID: ${user.id}, Nome: ${user.nome}, Idade: ${user.idade}, Email: ${user.email} `;
+
+            const btnExcluir = document.createElement('button');
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.onclick = function() {
+              excluirUsuario(user.id);
+            };
+
+            item.appendChild(btnExcluir);
+            lista.appendChild(item);
+          });
+        });
+    }
+
+    function excluirUsuario(id) {
+      fetch(`http://127.0.0.1:5000/excluir/${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.mensagem);
+          carregarUsuarios();
+        });
+    }
+
+    function limparUsuarios() {
+      fetch('http://127.0.0.1:5000/limpar', { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.mensagem);
+          carregarUsuarios();
+        });
+    }
+
+    // Carrega ao abrir a página
+    carregarUsuarios();
+  </script>
+</body>
+</html>
