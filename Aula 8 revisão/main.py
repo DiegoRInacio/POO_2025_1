@@ -122,7 +122,7 @@ class LojaFisica(Loja):
     def efetuar_pagamento(self, metodo: str, conta: Conta, valor: float):
         print(f"\nIniciando pagamento no valor de R${valor:.2f} via '{metodo}'...")
         if metodo == 'pix':
-            conta.pix(conta._Conta__pix, valor, conta)  # cuidado: chave pix precisa estar cadastrada
+            conta.pix(conta._Conta__pix, valor, conta)
         elif metodo == 'cheque_especial':
             conta.cheque_especial(valor)
         elif metodo == 'cartao_credito':
@@ -134,7 +134,7 @@ class LojaFisica(Loja):
 
 conta1 = Conta("Zé da Manga", "12345-6", "0001", saldo=500.0)
 conta1.cadastrar()
-conta1.cadastrar_pix("diego@pix.com")
+conta1.cadastrar_pix("ze_da_manga@email.com")
 
 loja = LojaFisica()
 loja.adicionar_produto("Camiseta", 100.0)
